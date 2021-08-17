@@ -84,8 +84,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 850,
-        "y": 340,
+        "x": 830,
+        "y": 260,
         "wires": []
     },
     {
@@ -100,8 +100,8 @@
         "nl": false,
         "rap": true,
         "rh": 0,
-        "x": 580,
-        "y": 360,
+        "x": 570,
+        "y": 280,
         "wires": [
             [
                 "eda164cc77f5390e"
@@ -166,8 +166,8 @@
         "precision": "",
         "retentionPolicy": "",
         "org": "organisation",
-        "x": 670,
-        "y": 660,
+        "x": 680,
+        "y": 700,
         "wires": [
             []
         ]
