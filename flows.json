@@ -1,0 +1,259 @@
+[
+    {
+        "id": "f2eea7a20fd21599",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e81075ada5baac48",
+        "type": "mqtt-broker",
+        "name": "Datahub",
+        "broker": "10.1.1.4 ",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "c217f945fa07c9c6",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "datahub",
+        "name": "datahub",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "eeb221fb.ab27f",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "datahub",
+        "name": "test",
+        "usetls": true,
+        "tls": "d50d0c9f.31e858",
+        "influxdbVersion": "1.8-flux",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "d50d0c9f.31e858",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "eda164cc77f5390e",
+        "type": "debug",
+        "z": "f2eea7a20fd21599",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "6a52375687fe03f4",
+        "type": "mqtt in",
+        "z": "f2eea7a20fd21599",
+        "name": "",
+        "topic": "\\",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "e81075ada5baac48",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 580,
+        "y": 360,
+        "wires": [
+            [
+                "eda164cc77f5390e"
+            ]
+        ]
+    },
+    {
+        "id": "c70fabd6856fbb22",
+        "type": "mqtt out",
+        "z": "f2eea7a20fd21599",
+        "name": "",
+        "topic": "\\",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e81075ada5baac48",
+        "x": 440,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "d168d1e184c7dc9b",
+        "type": "inject",
+        "z": "f2eea7a20fd21599",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "TEST",
+        "payloadType": "str",
+        "x": 240,
+        "y": 240,
+        "wires": [
+            [
+                "c70fabd6856fbb22"
+            ]
+        ]
+    },
+    {
+        "id": "7acaa984a95d5341",
+        "type": "influxdb in",
+        "z": "f2eea7a20fd21599",
+        "influxdb": "c217f945fa07c9c6",
+        "name": "datahub",
+        "query": "",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 670,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3143c1e75163882f",
+        "type": "inject",
+        "z": "f2eea7a20fd21599",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "cpu,host=serverA value=0.55",
+        "payloadType": "str",
+        "x": 420,
+        "y": 680,
+        "wires": [
+            [
+                "7acaa984a95d5341"
+            ]
+        ]
+    },
+    {
+        "id": "17bd4566.e842bb",
+        "type": "influxdb out",
+        "z": "f2eea7a20fd21599",
+        "influxdb": "eeb221fb.ab27f",
+        "name": "",
+        "measurement": "test",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "datahub",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 690,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "be93bfeb.416c4",
+        "type": "function",
+        "z": "f2eea7a20fd21599",
+        "name": "single value",
+        "func": "msg.payload = Math.random()*10;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 560,
+        "wires": [
+            [
+                "17bd4566.e842bb"
+            ]
+        ]
+    },
+    {
+        "id": "31f9f174.ce060e",
+        "type": "inject",
+        "z": "f2eea7a20fd21599",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 560,
+        "wires": [
+            [
+                "be93bfeb.416c4"
+            ]
+        ]
+    }
+]
